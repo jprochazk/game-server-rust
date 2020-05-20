@@ -12,3 +12,4 @@ simple_logger = "1.6.0"
 ws = "0.9.1"
 crossbeam = "0.7.3"
 crossbeam-channel = "0.4.2"
+rpg-server = { path = "." }

@@ -1,8 +1,6 @@
 extern crate crossbeam;
-extern crate num;
 extern crate simple_logger;
 extern crate ws;
-extern crate specs;
 
 mod network;
 

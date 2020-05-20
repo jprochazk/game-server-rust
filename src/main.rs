@@ -16,6 +16,7 @@ use network::ws::{Socket, SocketEvent};
 fn main() {
     simple_logger::init_with_level(log::Level::Info).unwrap();
 
+    
     let address = "127.0.0.1:8001";
     let mut settings = ws::Settings::default();
     settings.max_connections = 1000;
@@ -26,6 +27,7 @@ fn main() {
 
     let mut smgr = SessionManager::new(sq_recv);
     
+    // build the network thread
     thread::Builder::new()
         .name("network".into())
         .spawn(move || {
@@ -41,6 +43,7 @@ fn main() {
         })
         .expect("Failed to spawn network thread");
 
+    // fixed-interval loop
     let tick_interval = 1000 / 30;
     let mut last_tick = time::Instant::now();
     loop {

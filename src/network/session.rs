@@ -21,6 +21,7 @@ impl SessionManager {
     }
 
     pub fn update(&mut self) {
+        // Process the event queue
         for msg in self.channel.try_iter() {
             match msg {
                 SocketEvent::Open { id, addr, socket } => {
@@ -34,6 +35,7 @@ impl SessionManager {
                 }
                 SocketEvent::Error { id, error } => {
                     error!(target: "SESSION", "ID {} -> Error: {}", id, error);
+                    // TODO: handle error in some meaningful way
                 }
                 SocketEvent::Message { id, data } => {
                     info!(target: "SESSION", "ID {} -> Message: {:?}", id, data);

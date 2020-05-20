@@ -37,13 +37,15 @@ impl Socket {
     }
 }
 
+/// This ws::Handler implementation does a few basic checks, and otherwise
+/// relays any events to the main thread
 impl ws::Handler for Socket {
     fn on_open(&mut self, handshake: ws::Handshake) -> ws::Result<()> {
-        let addr: String = handshake
-            .remote_addr()
+        let addr: String = handshake.remote_addr()
             .unwrap_or(Some(String::from("null")))
             .unwrap_or(String::from("null"));
 
+        // if we can't get a remote address, close the connection
         if &addr == "null" {
             return self.out.close(ws::CloseCode::Policy);
         }
